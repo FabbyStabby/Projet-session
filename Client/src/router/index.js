@@ -9,30 +9,34 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: Home
     },
 
 
     {
       path: '/rendezvous',
-      name: 'rendez-vous',
+      name: 'Rendez-vous',
       component: RendezVous
     },
 
     {
       path: '/login',
-      name: 'login',
+      name: 'Login',
       component: Login
     },
 
     {
       path: '/profil',
-      name: 'profil',
+      name: 'Profil',
       component: Profil
     }
   
   ]
 })
 
+router.beforeEach((to, from, next) =>{
+  if (!(to.name === 'Login' || to.name === 'Home') && !isAuthenticated) next({ name: 'Login'})
+  else next()
+})
 export default router
