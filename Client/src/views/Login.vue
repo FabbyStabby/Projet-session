@@ -49,7 +49,25 @@
 					name="passwordR" 
 					required>
 			</div>
-				<div class="txt_field">
+			<div class="txt_field">
+				<label>Prenom</label>
+				<br>
+				<input 
+					v-model="prenom"
+					type="text" 
+					name="prenom" 
+					required>
+			</div>
+			<div class="txt_field">
+				<label>Nom</label>
+				<br>
+				<input 
+					v-model="nom"
+					type="text" 
+					name="nom" 
+					required>
+			</div>
+			<div class="txt_field">
 				<label>Phone number</label>
 				<br>
 				<input
@@ -76,6 +94,7 @@
 import { ref } from 'vue';
 import { loginAuth } from '../services/authService'
 import { useAuthedUser } from '../composables/authComposable';
+import { registerService } from '../services/service'
 
 export default {
 
@@ -87,6 +106,8 @@ export default {
 		
 		const usernameR = ref('');
 		const passwordR = ref('');
+		const prenom = ref('')
+		const nom = ref('')
 		const phoneNum = ref('');
 		const email = ref ('');
 
@@ -103,7 +124,15 @@ export default {
 		}
 
 		function register() {
-
+			const data = {
+				username: usernameR.value,
+				password: passwordR.value,
+				prenom: prenom.value,
+				nom: nom.value,
+				phone: phoneNum.value,
+				email: email.value
+			}
+			registerService(data);
 		}
 
 		return {
@@ -113,6 +142,8 @@ export default {
 			password,
 			usernameR,
 			passwordR,
+			prenom,
+			nom,
 			phoneNum,
 			email,
 		}

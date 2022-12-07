@@ -1,0 +1,28 @@
+GET http://localhost:3000/users
+
+###
+GET http://localhost:3000/users/
+
+###
+
+POST http://localhost:3000/users/new
+Content-Type: application/json
+
+{
+    "username": "Marko123",
+    "password": "test123",
+    "prenom": "Marko",
+    "nom": "Perotic",
+    "phone": "514 123 4567",
+    "email": "test@test.com"
+}
+
+###
+
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "username": "FabbyStabby",
+    "password": "123"
+}

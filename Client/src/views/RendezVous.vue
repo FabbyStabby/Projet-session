@@ -10,7 +10,8 @@
     <div class="heure-De-Reservation">
       <span>{{ selectedHour }}</span>
       <button 
-        v-for="btn in availableHours" 
+        v-for="btn in availableHours"
+        class="btn" 
         :key="btn.value"
         @click="selectHour(btn.value)"
       >
@@ -27,7 +28,6 @@
           {{ opt.name }}
         </option>
       </select>
-      <button class="btn"> time </button>
     </div>
 
     <div class="reserver">

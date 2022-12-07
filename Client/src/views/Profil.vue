@@ -1,24 +1,38 @@
 <template>
-    <div class="page-profile">
+    <div
+        v-if="userInfo" 
+        class="page-profile"
+    >
         <div class="profile">
-            Username: {{ userInfo.name }}
+            Username:  {{ userInfo.username }}
+            <br>
+            Prenom: {{ userInfo.prenom }}
+            <br>
+            Nom: {{ userInfo.nom }}
             <br>
             Email: {{ userInfo.email }}
             <br>
-            Telephone: {{ userInfo.telephone }}
+            Telephone: {{ userInfo.phone }}
             <br>
-
         </div>
 
         <div class="reservation">
-            Reserations: 
+            Reservation: 
             <br>
-            <button class="btn">
+            {{ userInfo.reservation }}
+            <br>
+            <button 
+                class="btn"
+                @click="modifer()"
+            >
                 Modifer
             </button>
 
-            <button class="btn">
-                Annulé
+            <button 
+                class="btn"
+                @click="annuler()"
+            >
+                Annuler
             </button>
         </div>
     </div>
@@ -39,9 +53,13 @@ export default {
 </script>
 
 <style>
-.page-profile{
+.page-profile {
     display: flex;
     flex-direction: row;
-    
+    justify-content: left;
+ }
+
+ .profile {
+    flex-grow: .5;
  }
 </style>
