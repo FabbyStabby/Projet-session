@@ -1,29 +1,41 @@
 <template>
     <div class="page-profile">
         <div class="profile">
-            Prenom: {{}}
+            Username: {{ userInfo.name }}
             <br>
-            Nom: {{}}
+            Email: {{ userInfo.email }}
             <br>
-            Email: {{}}
-            <br>
-            Telephone: {{}}
+            Telephone: {{ userInfo.telephone }}
             <br>
 
         </div>
 
         <div class="reservation">
-            Reserations: {{}}
+            Reserations: 
             <br>
-            <button class="btn">Modifer</button> <button class="btn">Annulé</button>
+            <button class="btn">
+                Modifer
+            </button>
 
+            <button class="btn">
+                Annulé
+            </button>
         </div>
-
     </div>
 </template>
 
 <script>
+import { useAuthedUser } from '../composables/authComposable';
 
+export default {
+    setup() {
+        const { userInfo } = useAuthedUser();
+
+        return {
+            userInfo
+        }
+    }
+}
 </script>
 
 <style>
@@ -32,17 +44,4 @@
     flex-direction: row;
     
  }
- 
-.btn{
-    background-color: white;
-    width: 100px;
-    height: 40px;
-    margin: 10px;
-    border-radius: 5px;
-    border-color: transparent;
-   }
-
-   .btn:hover{
-    background-color: rgb(252, 228, 232);
-   }
 </style>
