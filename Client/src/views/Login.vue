@@ -1,59 +1,126 @@
 <template>
-    <div class="container">
-        <div class="loginBox">
-            <h1>Login</h1>
-            <div class="txt_field">
-                <label>Email</label>
-                <br>
-                <input type="text" required>
-            </div>
-            <div class="txt_field">
-                <label>Password</label>
-                <br>
-                <input type="password" required>
-            </div>
-            <input type="submit" value="Login">
-        
-        </div>
+	<div class="container">
+		<div class="loginBox">
+			<h1>Login</h1>
+				<div class="txt_field">
+					<label>Username</label>
+					<br>
+					<input
+						v-model="username"
+						type="text"
+						name="username" 
+						required
+					>
+				</div>
+				<div class="txt_field">
+					<label>Password</label>
+					<br>
+					<input 
+						v-model="password"
+						type="password" 
+						name="password"  
+						required>
+				</div>
+					<button
+						class="btn"
+						@click="attemptLogin()"
+					>
+						Login
+					</button>
+			</div>
 
-        <div class="registerBox">
-            <h1>Register</h1>
-            <div class="txt_field">
-                <label>Name</label>
-                <br>
-                <input type="text" required>
-                
-            </div>
-            <div class="txt_field">
-                <label>Last name</label>
-                <br>
-                <input type="text" required>
-            </div>
-            <div class="txt_field">
-                <label>Phone number</label>
-                <br>
-                <input type="text" required>
-            </div>
-            <div class="txt_field">
-                <label>Email</label>
-                <br>
-                <input type="text" required>
-            </div>
-            <div class="txt_field">
-                <label>Password</label>
-                <br>
-                <input type="password" required>
-            </div>
-            <input type="submit" value="Register">
-        </div>
-    </div>
+		<div class="registerBox">
+			<h1>Register</h1>
+			<div class="txt_field">
+				<label>Username</label>
+				<br>
+				<input 
+					v-model="usernameR"
+					type="text" 
+					name="usernameR" 
+					required>
+			</div>
+			<div class="txt_field">
+				<label>Password</label>
+				<br>
+				<input 
+					v-model="passwordR"
+					type="password" 
+					name="passwordR" 
+					required>
+			</div>
+				<div class="txt_field">
+				<label>Phone number</label>
+				<br>
+				<input
+					v-model="phoneNum" 
+					type="text" 
+					name="phonenumber" 
+					required>
+			</div>
+			<div class="txt_field">
+				<label>Email</label>
+				<br>
+				<input 
+					v-model="email"
+					type="email" 
+					name="email" 
+					required>
+			</div>
+			<button class="btn" @click="register()">Register</button>
+		</div>
+	</div>
 </template>
 
 <script>
+import { ref } from 'vue';
+import { loginAuth } from '../services/authService'
+import { useAuthedUser } from '../composables/authComposable';
 
+export default {
+
+	setup() {
+		const { login } = useAuthedUser();
+
+		const username = ref('');
+		const password = ref('');
+		
+		const usernameR = ref('');
+		const passwordR = ref('');
+		const phoneNum = ref('');
+		const email = ref ('');
+
+		// examples
+		async function attemptLogin() {
+			try  {
+				const res = await loginAuth(username.value, password.value);
+				login(res.data);
+				
+			} catch (err) {
+
+				// do login failed stuff
+			}
+		}
+
+		function register() {
+
+		}
+
+		return {
+			attemptLogin,
+			register,
+			username,
+			password,
+			usernameR,
+			passwordR,
+			phoneNum,
+			email,
+		}
+	}
+}
 </script>
 
-<style>
+<style scoped>
     .container {
         display: flex;
         flex-direction: row;
@@ -63,7 +130,7 @@
     }
 
     .loginBox, .registerBox{
-        background-color: white;
+        background-color: rgb(252, 209, 216);
         border-radius: 10px;
         height: auto;
         padding: 40px 20px 40px 20px;
@@ -78,6 +145,13 @@
 
     .txt_field {
         padding: 5px;
+    } 
+    
+    .btn {
+        background-color: rgb(255, 255, 255);
+    }
+    .btn:hover{
+      background-color: rgb(252, 228, 232);
     }
 
 </style>

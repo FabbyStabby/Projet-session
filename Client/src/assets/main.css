@@ -2,3 +2,15 @@
 
 
 
+.btn{
+    background-color: pink;
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 5px;
+    border-color: transparent;
+   }
+
+   .btn:hover{
+    background-color: rgb(252, 228, 232);
+   }

@@ -1,16 +1,15 @@
 <template>
     <nav>  
       <div class="info">
-        <router-link to="/" class="nav-item nav-link">Acceueil</router-link>
-        <router-link to="/RendezVous" class="nav-link">Rendez-Vous</router-link>
+        <router-link to="/" class="nav-item nav-link">Accueil</router-link>
+        <router-link :to="{ name: 'Rendez-vous' }" class="nav-link">Rendez-Vous</router-link>
       </div>
       <div class="connection">
         <template v-if="isLoggedIn">
-        
+          <router-link to="/profil" class="">Profile</router-link>
           <a @click="logout">Logout</a>
         </template>
         <template v-else>
-          <router-link to="/profil" class="">Profile</router-link>
           <router-link to="/login">Login</router-link>
         </template>
       </div>
@@ -18,7 +17,14 @@
 </template>
 
 <script>
+import { useAuthedUser } from '../composables/authComposable';
 
+export default {
+  setup() {
+    const { logout, isLoggedIn } = useAuthedUser();
+    return { logout, isLoggedIn };
+  }
+}
 
 </script>
 

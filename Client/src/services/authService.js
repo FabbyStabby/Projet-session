@@ -1,18 +1,32 @@
 import axios from 'redaxios';
 
-export async function login(username, password) {
+export async function loginAuth(username, password) {
   if (username && password) {
-    axios.post('https://localhost:8080/api/v1/login', {
-
-    }).then((res) => {
-      // dosoemthing 
-      // or return sometihng
-    }, (err) => {
-
-    })
+    const mockUserInfoRes = {
+      data: {
+        name: 'Marko',
+        telephone: '5141234567',
+        email: '123@123.com'
+      }
+    }
+    return new Promise((resolve) => {
+      resolve(mockUserInfoRes);
+    });
+    
+    return axios.post('https://localhost:8080/api/v1/login', { body: {
+      username,
+      password,
+    }});
   }
+  throw new Error("No username or password inputed.");
+}
 
-  return {
-    error: 'Missing Info'
-  }
+export async function getUserInfo() {
+  axios.post('https://localhost:8080/api/v1/getUser', {
+
+  }).then((res) => {
+
+  }, (err) => {
+
+  })
 }

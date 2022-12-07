@@ -1,19 +1,17 @@
 <template>
   <!-- Step 3: Add component to template -->
-  <NavBar 
-    :user-info="userInfo"
-    @logout="logout"
-  />
+  <NavBar />
   <router-view class="views" />
   <Footer class="footer" />
 </template>
 
 <script>
-import { ref, provide } from 'vue';
+import { ref, provide, onMounted } from 'vue';
 
 // Step 1: Import of component
 import NavBar from './components/NavBar.vue';
 import Footer from './components/Footer.vue';
+import { setupAuthLogin } from './composables/authComposable';
 
 export default {
   name: "App",
@@ -24,26 +22,9 @@ export default {
   },
 
   setup() {
-    const userInfo = ref({ name: 'My Name'});
+    const { userInfo } = setupAuthLogin();
 
-    function toggleLoggin(newUserInfo) {
-      if (newUserInfo) {
-        userInfo.value = newUserInfo;
-      } else {
-        userInfo.value = undefined
-      }
-    }
-
-    provide('user-info', [userInfo, toggleLoggin]);
-
-    function logout() {
-      userInfo.value = undefined;
-    }
-
-    return {
-      userInfo,
-      logout
-    };
+    return { userInfo };
   }
 };
 
