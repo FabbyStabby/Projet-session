@@ -69,6 +69,7 @@ Content-Type: application/json
 
 PUT http://localhost:3000/rendezVousDispo/updateAvailable
 Content-Type: application/json
+
 {
     "date": "12/12/2022",
     "time": "14:30",

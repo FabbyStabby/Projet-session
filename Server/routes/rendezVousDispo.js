@@ -49,6 +49,7 @@ router.post('/new', async (req, res) => {
 
 router.put('/updateAvailable', (req, res) =>{
    
+    try {
     RendezVousDispo.findOneAndUpdate({
         date: req.body.date,
         time: req.body.time
@@ -59,8 +60,11 @@ router.put('/updateAvailable', (req, res) =>{
             return;
         }
         res.send(result)
+    }) 
+    } catch (err){
+        res.status(500).json({message: err.message})
     }
-    )
+
 })
 
 module.exports = router
