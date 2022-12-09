@@ -23,6 +23,11 @@ app
 const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
 
+const rendezVousDispoRouter = require('./routes/rendezVousDispo');
+app.use('/rendezVousDispo', rendezVousDispoRouter);
+
+const rendezVousRouter = require('./routes/rendezVous');
+app.use('/rendezVous', rendezVousRouter);
 
 app.listen(3000, () => {
     console.log(`Server Started at ${3000}`)

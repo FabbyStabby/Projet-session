@@ -26,3 +26,51 @@ Content-Type: application/json
     "username": "FabbyStabby",
     "password": "123"
 }
+
+###
+
+GET http://localhost:3000/rendezVousDispo?date=12/12/2022
+
+
+###
+
+POST http://localhost:3000/rendezVousDispo/new
+Content-Type: application/json
+
+{
+    "date": "12/12/2022",
+    "time": "14:30",
+    "available": true
+}
+
+###
+
+POST http://localhost:3000/rendezVous/new
+Content-Type: application/json
+
+{
+    "date": "12/12/2022",
+    "time": "14:30",
+    "username": "FabbyStabby"
+}
+
+###
+
+PUT http://localhost:3000/rendezVousDispo/updateAvailable
+Content-Type: application/json
+
+{
+    "date": "12/12/2022",
+    "time": "14:30",
+    "available": true
+}
+
+###
+
+PUT http://localhost:3000/rendezVousDispo/updateAvailable
+Content-Type: application/json
+{
+    "date": "12/12/2022",
+    "time": "14:30",
+    "available": false
+}

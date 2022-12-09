@@ -94,7 +94,7 @@
 import { ref } from 'vue';
 import { loginAuth } from '../services/authService'
 import { useAuthedUser } from '../composables/authComposable';
-import { registerService } from '../services/service'
+import { registerUserService } from '../services/service'
 
 export default {
 
@@ -119,7 +119,7 @@ export default {
 				
 			} catch (err) {
 
-				// do login failed stuff
+				
 			}
 		}
 
@@ -132,7 +132,7 @@ export default {
 				phone: phoneNum.value,
 				email: email.value
 			}
-			registerService(data);
+			registerUserService(data);
 		}
 
 		return {

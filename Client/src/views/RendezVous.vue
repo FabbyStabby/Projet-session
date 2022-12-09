@@ -4,98 +4,133 @@
     
     <Datepicker
       v-model="date"
-      lang='en'
-    />
+      lang='fr'
+      date-format="{
+        day:'2-digit',
+        month:'2-digit',
+        year: 'numeric'
+        }"
+    /> 
 
     <div class="heure-De-Reservation">
-      <span>{{ selectedHour }}</span>
       <button 
         v-for="btn in availableHours"
         class="btn" 
         :key="btn.value"
-        @click="selectHour(btn.value)"
+        @click="(showPopup = true, selectHour(btn.value))"
+        
       >
         {{ btn.name }}
       </button>
 
-      <select v-model="selectedHour">
-        <option :value="undefined"> -- </option>
-        <option
-          v-for="opt in availableHours"
-          :key="opt.value"
-          :value="opt.value"
-        >
-          {{ opt.name }}
-        </option>
-      </select>
     </div>
-
-    <div class="reserver">
-      <button class="btn">Reserver</button>
-    </div>
-
+    <ReservationPopUp
+    v-if="showPopup"
+    @close="showPopup = false"
+    >
+      <h2>Confirmer votre reservation:</h2>
+      <div class="reservation">
+        <h3>
+          Le {{ formatedDate }} a {{ selectedHour }}
+        </h3>
+      </div>
+      <button
+        class="btn"
+        @click="reserver(formatedDate, selectedHour, userInfo.username)"
+      >
+      Reserver</button>
+    </ReservationPopUp>
   </div>
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import 'vue-datepicker-ui/lib/vuedatepickerui.css';
 import VueDatepickerUi from 'vue-datepicker-ui';
+import { getTimeService, 
+  postReserverRendezVous,
+  putUpdateRendezVousDispo 
+} from '../services/service'
+import ReservationPopUp from '../components/ReservationPopUp.vue'
+import { useAuthedUser } from '../composables/authComposable';
 
 export default {
   components: {
-    Datepicker: VueDatepickerUi
+    Datepicker: VueDatepickerUi,
+    ReservationPopUp
+    
   },
 
   setup() {
+    const { userInfo } = useAuthedUser();
+
     const date = ref();
     const availableHours = ref([]);
     const selectedHour = ref();
+    const formatedDate = computed(() => {
+      const options = { day: '2-digit', month: '2-digit', year: 'numeric'}
+      const dateToFormate = new Date(date.value);
+      return dateToFormate.toLocaleDateString("en-GB", options);
+      
+    });
     
-    function updateAvailHours() {
+    const showPopup = ref(false)
+    
+    
+    async function updateAvailHours() {
       // Fetch stuff
-      // Parse data corerectly
-      // availableHours.value = new data as an array that was parsed
+      const res = await getTimeService(formatedDate.value);
+       
+      availableHours.value = [];
+      
 
-      // temporary 
-      availableHours.value = [
-        {
-          name: 'BUTTON 1',
-          value: 1
-
-        },
-        {
-          name: 'BUTTON 2',
-          value: 2
-
-        },
-        {
-          name: 'BUTTON 3',
-          value: 3
-
-        },
-        {
-          name: 'BUTTON 4',
-          value: 4
+      for (let index = 0; index < res.data.length; index++) {
+        availableHours.value[index] = {
+          name: res.data[index],
+          value: res.data[index]
         }
-      ];
+        
+       }
+      
     }
 
     watch(
-      date,
+      formatedDate,
       updateAvailHours, 
       { immediate: true }
     );
 
     function selectHour(hour) {
       selectedHour.value = hour;
+    } 
+
+    function reserver(date, time, username) {
+      const data = {
+        date: date,
+        time: time,
+        username: username
+      }
+      const data2 = {
+        date: date,
+        time: time,
+        available: false
+      }
+      postReserverRendezVous(data);
+      putUpdateRendezVousDispo(data2);
+
     }
 
+    
     return { 
+      userInfo,
       date,
       availableHours,
       selectedHour,
       selectHour,
+      formatedDate,
+      ReservationPopUp,
+      showPopup,
+      reserver
     };
   }
 }
