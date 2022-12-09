@@ -118,12 +118,12 @@ export default {
 				login(res.data);
 				
 			} catch (err) {
-
+				alert('Username/Password invalide')
 				
 			}
 		}
 
-		function register() {
+		async function register() {
 			const data = {
 				username: usernameR.value,
 				password: passwordR.value,
@@ -132,7 +132,11 @@ export default {
 				phone: phoneNum.value,
 				email: email.value
 			}
-			registerUserService(data);
+			try{
+				await registerUserService(data);
+			} catch (err) {
+				alert('Username dejas utiliser')
+			}
 		}
 
 		return {

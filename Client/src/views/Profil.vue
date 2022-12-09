@@ -17,47 +17,96 @@
 		</div>
 
 		<div class="reservation">
-			Reservation: 
+			Rendez-Vous: 
 			<br>
-			{{ reservation }}
+			{{ rendezVous }}
 			<br>
 			
 			<button 
 				class="btn"
-				@click="annuler()"
+				v-if="hasRendezVous"
+				@click="(showPopup = true)"
 			>
 				Annuler
 			</button>
+			<PopUp
+				v-if="showPopup"
+				@close="showPopup = false"
+				>
+					<h2>Voulez vous annuler votre rendez vous:</h2>
+					<h3> Le {{ date }} a {{ time }}</h3>
+					<button
+						class="btn"
+						@click="annuler()"
+					>
+					Annuler
+					</button>
+				</PopUp>
 		</div>
 	</div>
 </template>
 
 <script>
+import { ref } from 'vue';
 import { useAuthedUser } from '../composables/authComposable';
-import { putUpdateRendezVousDispo } from '../services/service';
+import { putUpdateRendezVousDispo, deleteAnnulerRendezVous, getRendezVous } from '../services/service';
+import PopUp from '../components/PopUp.vue'
 
 export default {
+	components: {
+		PopUp
+	},
+	
 	setup() {
 		const { userInfo } = useAuthedUser();
-
-		function showRendezVous (){
-				//TODO get API to fetch rendezvous
-		}
-		showRendezVous()
-
-		function annuler(){
-			const data = {
-				date: date,
-				time: time,
-				available: false
+		const date = ref();
+		const time = ref();
+		const showPopup = ref(false)
+		const hasRendezVous = ref(false)
+		const rendezVous = ref('')
+		
+		
+		async function showRendezVous (){
+			try{
+				const res = await getRendezVous(userInfo.value.username);
+					date.value = res.data.date
+					time.value = res.data.time
+					hasRendezVous.value = true
+					rendezVous.value = date.value + ' ' + time.value
+			} catch (err) { 
+				hasRendezVous.value = false
+				rendezVous.value = 'Vous n\'avez pas de rendez-vous'
 			}
-			putUpdateRendezVousDispo(data)
-			//TODO DELETE RENDEZVOUS
 		}
+		
+		
+		async function annuler(){
+			const data = {
+				date: date.value,
+				time: time.value,
+				available: true
+			}
+			await deleteAnnulerRendezVous(userInfo.value.username)
+			await putUpdateRendezVousDispo(data)
+			await showRendezVous();
+			showPopup.value = false;
+		}
+		
+		
+		
+		showRendezVous();
+
 		return {
 			userInfo,
 			annuler,
-			showRendezVous
+			showRendezVous,
+			date,
+			time,
+			showPopup,
+			PopUp,
+			hasRendezVous,
+			rendezVous,
+			
 		}
 	}
 }
@@ -72,5 +121,7 @@ export default {
 
  .profile {
     flex-grow: .5;
+
  }
+ 
 </style>

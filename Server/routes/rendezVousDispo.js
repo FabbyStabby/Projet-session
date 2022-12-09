@@ -56,7 +56,7 @@ router.put('/updateAvailable', (req, res) =>{
     },
     { available: req.body.available },{ new: true } , (err, result) => {
         if(err) {
-            console.log(err)
+            res.status(400).json({ message: err.message })
             return;
         }
         res.send(result)

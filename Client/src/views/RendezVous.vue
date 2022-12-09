@@ -24,11 +24,11 @@
       </button>
 
     </div>
-    <ReservationPopUp
+    <PopUp
     v-if="showPopup"
     @close="showPopup = false"
     >
-      <h2>Confirmer votre reservation:</h2>
+      <h2>Confirmer votre rendez-vous:</h2>
       <div class="reservation">
         <h3>
           Le {{ formatedDate }} a {{ selectedHour }}
@@ -39,7 +39,7 @@
         @click="reserver(formatedDate, selectedHour, userInfo.username)"
       >
       Reserver</button>
-    </ReservationPopUp>
+    </PopUp>
   </div>
 </template>
 
@@ -51,13 +51,13 @@ import { getTimeService,
   postReserverRendezVous,
   putUpdateRendezVousDispo 
 } from '../services/service'
-import ReservationPopUp from '../components/ReservationPopUp.vue'
+import PopUp from '../components/PopUp.vue'
 import { useAuthedUser } from '../composables/authComposable';
 
 export default {
   components: {
     Datepicker: VueDatepickerUi,
-    ReservationPopUp
+    PopUp
     
   },
 
@@ -104,7 +104,7 @@ export default {
       selectedHour.value = hour;
     } 
 
-    function reserver(date, time, username) {
+    async function reserver(date, time, username) {
       const data = {
         date: date,
         time: time,
@@ -115,8 +115,15 @@ export default {
         time: time,
         available: false
       }
-      postReserverRendezVous(data);
-      putUpdateRendezVousDispo(data2);
+      try{
+        await postReserverRendezVous(data);
+        await putUpdateRendezVousDispo(data2);
+        await updateAvailHours();
+        showPopup.value = false;
+      } catch (err) {
+        alert('Vous avez dejas un rendez vous')
+
+      }
 
     }
 
@@ -128,7 +135,7 @@ export default {
       selectedHour,
       selectHour,
       formatedDate,
-      ReservationPopUp,
+      PopUp,
       showPopup,
       reserver
     };

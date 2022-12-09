@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ###
-
+ 
 GET http://localhost:3000/rendezVousDispo?date=12/12/2022
 
 
@@ -39,7 +39,7 @@ Content-Type: application/json
 
 {
     "date": "12/12/2022",
-    "time": "14:30",
+    "time": "13:30",
     "available": true
 }
 
@@ -50,7 +50,7 @@ Content-Type: application/json
 
 {
     "date": "12/12/2022",
-    "time": "14:30",
+    "time": "13:30",
     "username": "FabbyStabby"
 }
 
@@ -61,7 +61,7 @@ Content-Type: application/json
 
 {
     "date": "12/12/2022",
-    "time": "14:30",
+    "time": "13:30",
     "available": true
 }
 
@@ -75,3 +75,11 @@ Content-Type: application/json
     "time": "14:30",
     "available": false
 }
+
+###
+
+DELETE http://localhost:3000/rendezVous/delete?username=FabbyStabby
+
+###
+
+GET http://localhost:3000/rendezVous?username=FabbyStabby
