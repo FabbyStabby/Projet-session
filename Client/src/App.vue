@@ -32,7 +32,8 @@ export default {
 
 <style scoped>
 .footer{
-  align-self: flex-end;
+  margin-top: auto;
+  
 }
 
 .views{
@@ -43,13 +44,13 @@ export default {
 <style> 
 #app {
   display: flex;
-  justify-content: space-between;
   width: 100%;
   flex-direction: column;
   flex: 1;  
   min-height: 100%;
  
 }
+
 
 html, body {
   height: 100%;

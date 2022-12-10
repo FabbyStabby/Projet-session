@@ -174,7 +174,6 @@ export default {
         margin: 80px 40px 80px 40px;
         color: #000;
         max-width: 400px;
-      
     
     }
 

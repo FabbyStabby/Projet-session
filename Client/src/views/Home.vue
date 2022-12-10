@@ -1,6 +1,7 @@
 <template>
+  <div class="container">
   <H1>Bienvenu au salon Bois-de-Boulogne</H1>
-    <div class="container">
+    <div class="content">
       <div class="picture">
         <img src="/stockPhoto.jpg">
       </div>
@@ -13,14 +14,19 @@
         <p> dui nunc mattis enim ut tellus elementum sagittis. Turpis in eu mi bibendum neque egestas congue quisque. Nisl nunc mi ipsum faucibus vitae aliquet. Quis varius quam quisque id diam vel quam. Metus aliquam eleifend mi in nulla. Malesuada nunc vel risus commodo viverra maecenas accumsan. Mauris nunc congue nisi vitae suscipit tellus mauris a. Quisque sagittis purus sit amet volutpat consequat mauris. Suscipit tellus mauris a diam maecenas sed enim ut. Placerat duis ultricies lacus sed. Euismod in pellentesque massa placerat duis ultricies lacus sed. Enim nunc faucibus a pellentesque. Eget mauris pharetra et ultrices neque ornare aenean. Convallis posuere morbi leo urna. Arcu bibendum at varius vel pharetra vel turpis nunc. Netus et malesuada fames ac turpis. Ante in nibh mauris cursus. Ipsum dolor sit amet consectetur.</p>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <style scoped>
   
     .container {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: left;
+      margin: 25px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.2);
     }
 
     .aboutUs {
@@ -28,11 +34,19 @@
       flex-direction: column;
       justify-content: flex-start;
     }
+    .content{
+      display: flex;
+      flex-direction: row;
+    }
   
     .aboutUs, .picture {
       height: auto;
       margin: 10px;
-  
+      
     }
   
+    p{
+      padding: 5px;
+      font-size: 18px;
+    }
   </style>

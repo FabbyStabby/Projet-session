@@ -1,49 +1,74 @@
 <template>
-	<div
-		v-if="userInfo" 
-		class="page-profile"
-	>
-		<div class="profile">
-			Username:  {{ userInfo.username }}
-			<br>
-			Prenom: {{ userInfo.prenom }}
-			<br>
-			Nom: {{ userInfo.nom }}
-			<br>
-			Email: {{ userInfo.email }}
-			<br>
-			Telephone: {{ userInfo.phone }}
-			<br>
-		</div>
+	
+		<div
+			v-if="userInfo" 
+			class="page-profile"
+		>
+			<div class="profile">
+				<span class="info">
+					Username:
+				</span>
+					{{ userInfo.username }}
+				<br>
+					
+				
+				<span class="info">
+					Prenom:
+				</span>
+					{{ userInfo.prenom }}
+				<br>
+					
+				
+				<span class="info">
+					Nom:
+				</span>
+					{{ userInfo.nom }}
+				<br>
+				
+					
+				<span class="info">
+					Email:
+				</span>
+					{{ userInfo.email }}
+				<br>
+				
+					
+				<span class="info">
+					Phone:
+				</span> 
+					{{ userInfo.phone }}
+				<br>
+				
+			</div>
 
-		<div class="reservation">
-			Rendez-Vous: 
-			<br>
-			{{ rendezVous }}
-			<br>
-			
-			<button 
-				class="btn"
-				v-if="hasRendezVous"
-				@click="(showPopup = true)"
-			>
-				Annuler
-			</button>
-			<PopUp
-				v-if="showPopup"
-				@close="showPopup = false"
+			<div class="reservation">
+				<span class="info"> Votre Rendez-Vous: 
+					<br>
+				</span>
+					{{ rendezVous }}
+				<br>
+				<button 
+					class="btn"
+					v-if="hasRendezVous"
+					@click="(showPopup = true)"
 				>
-					<h2>Voulez vous annuler votre rendez vous:</h2>
-					<h3> Le {{ date }} a {{ time }}</h3>
-					<button
-						class="btn"
-						@click="annuler()"
-					>
 					Annuler
-					</button>
-				</PopUp>
+				</button>
+				<PopUp
+					v-if="showPopup"
+					@close="showPopup = false"
+					>
+						<h2>Voulez vous annuler votre rendez vous:</h2>
+						<h3> Le {{ date }} a {{ time }}</h3>
+						<button
+							class="btnPopUp"
+							@click="annuler()"
+						>
+						Annuler
+						</button>
+					</PopUp>
+			</div>
 		</div>
-	</div>
 </template>
 
 <script>
@@ -112,16 +137,49 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .page-profile {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
+	display: flex;
+	flex-direction: row;
+	justify-items: center;
+	justify-content: space-around;
+	border-radius: 10px;
+	background-color: rgba(0,0,0,.2);
+	
+	
  }
 
- .profile {
-    flex-grow: .5;
+ .info {
+    font-size: 20px;
+		
+
 
  }
- 
+ .profile, .reservation{
+	
+		background-color: rgb(252, 209, 216);
+		border-radius: 10px;
+		padding: 20px;
+		height: max-content;
+		margin: 25px;
+		
+
+ }
+ .btn {
+		background-color: rgb(255, 255, 255);
+	}
+	.btn:hover{
+		background-color: rgb(252, 228, 232);
+	}
+	.btnPopUp {
+		background-color: pink;
+		width: 100px;
+		height: 40px;
+		margin: 10px;
+		border-radius: 5px;
+		border-color: transparent;
+	}
+	.btnPopUp:hover{
+		background-color: rgb(252, 228, 232);
+	}
 </style>

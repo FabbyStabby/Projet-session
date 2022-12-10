@@ -1,45 +1,48 @@
 <template>
-  <div class="reservation">
-  <h1>Prendre un rendez-vous</h1>
-    
-    <Datepicker
-      v-model="date"
-      lang='fr'
-      date-format="{
-        day:'2-digit',
-        month:'2-digit',
-        year: 'numeric'
-        }"
-    /> 
-
-    <div class="heure-De-Reservation">
-      <button 
-        v-for="btn in availableHours"
-        class="btn" 
-        :key="btn.value"
-        @click="(showPopup = true, selectHour(btn.value))"
-        
-      >
-        {{ btn.name }}
-      </button>
-
-    </div>
-    <PopUp
-    v-if="showPopup"
-    @close="showPopup = false"
-    >
-      <h2>Confirmer votre rendez-vous:</h2>
-      <div class="reservation">
-        <h3>
-          Le {{ formatedDate }} a {{ selectedHour }}
-        </h3>
+<div class="container">
+    <h1>Prendre un rendez-vous</h1>
+    <div class="reservationForm">
+      <div class="calender">
+      <Datepicker
+        v-model="date"
+        lang='fr'
+        date-format="{
+          day:'2-digit',
+          month:'2-digit',
+          year: 'numeric'
+          }"
+      /> 
       </div>
-      <button
-        class="btn"
-        @click="reserver(formatedDate, selectedHour, userInfo.username)"
+
+      <div class="heure-De-Reservation">
+        <button 
+          v-for="btn in availableHours"
+          class="btn" 
+          :key="btn.value"
+          @click="(showPopup = true, selectHour(btn.value))"
+          
+        >
+          {{ btn.name }}
+        </button>
+
+      </div>
+      <PopUp
+      v-if="showPopup"
+      @close="showPopup = false"
       >
-      Reserver</button>
-    </PopUp>
+        <h2>Confirmer votre rendez-vous:</h2>
+        <div class="reservation">
+          <h3>
+            Le {{ formatedDate }} a {{ selectedHour }}
+          </h3>
+        </div>
+        <button
+          class="btnPopUp"
+          @click="reserver(formatedDate, selectedHour, userInfo.username)"
+        >
+        Reserver</button>
+      </PopUp>
+    </div>
   </div>
 </template>
 
@@ -145,13 +148,53 @@ export default {
 </script>
 
 <style scoped>
-   .reservation{
+  .reservationForm{
     display: flex;
     flex-direction: column;
     margin: 10px;
+    justify-items: left;
+    flex-wrap: wrap;
+    background-color: rgb(252, 209, 216);
+    border-radius: 10px;
+    height: auto;
+    padding: 40px 20px 40px 20px;
+    text-align: left;
+    width: 100%;
+    margin: 80px 40px 80px 40px;
+    color: #000;
+    max-width: 400px;
    }
 
 
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.2);
+   }
    
+   .calender{
+    margin: 10px;
+   }
 
+   .btn {
+      background-color: rgb(255, 255, 255);
+    }
+    .btn:hover{
+      background-color: rgb(252, 228, 232);
+    }
+    .btnPopUp {
+      background-color: pink;
+      width: 100px;
+      height: 40px;
+      margin: 10px;
+      border-radius: 5px;
+      border-color: transparent;
+    }
+    .btnPopUp:hover{
+      background-color: rgb(252, 228, 232);
+    }
 </style>

@@ -15,13 +15,13 @@
         </div>
 
         <div class="socialMedia">
-            <a href="https://Facebook.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.facebook.com/college.de.bois.de.boulogne/" target="_blank" rel="noopener noreferrer">
                 <fa color="black" icon="fa-brands fa-facebook" size="4x" />
             </a>
-            <a href="https://Twitter.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://twitter.com/collegebdeb?lang=en" target="_blank" rel="noopener noreferrer">
                 <fa color="black" icon="fa-brands fa-twitter"  size="4x" />
             </a>
-            <a href="https://Instagram.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/collegebdeb/?hl=en" target="_blank" rel="noopener noreferrer">
                 <fa color="black" icon="fa-brands fa-instagram"  size="4x" />
             </a>
         </div>
